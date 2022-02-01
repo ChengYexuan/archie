@@ -9,4 +9,8 @@ public class OperatorDefBuiltin extends OperatorDef {
     public OperatorDefBuiltin(String identifier) {
         super(identifier);
     }
+
+    public OperatorDefBuiltin(OperatorKind operatorKind) {
+        this(operatorKind.getIdentifier());
+    }
 }

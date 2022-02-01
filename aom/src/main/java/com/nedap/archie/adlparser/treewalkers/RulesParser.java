@@ -68,8 +68,8 @@ public class RulesParser extends BaseTreeWalker {
             BinaryOperator expression = new BinaryOperator();
             expression.setType(ExpressionType.BOOLEAN);
             expression.setOperator(OperatorKind.parse(context.SYM_IMPLIES().getText()));
-            expression.addOperand(parseExpression(context.expression()));
-            expression.addOperand(parseForAllExpression(context.booleanForAllExpression()));
+            expression.setLeftOperand(parseExpression(context.expression()));
+            expression.setRightOperand(parseForAllExpression(context.booleanForAllExpression()));
             return expression;
         } else {
             return parseForAllExpression(context.booleanForAllExpression());
@@ -102,8 +102,8 @@ public class RulesParser extends BaseTreeWalker {
             BinaryOperator expression = new BinaryOperator();
             expression.setType(ExpressionType.BOOLEAN);
             expression.setOperator(OperatorKind.parse(context.SYM_OR().getText()));
-            expression.addOperand(parseOrExpression(context.booleanOrExpression()));
-            expression.addOperand(parseAndExpression(context.booleanAndExpression()));
+            expression.setLeftOperand(parseOrExpression(context.booleanOrExpression()));
+            expression.setRightOperand(parseAndExpression(context.booleanAndExpression()));
             return expression;
         } else {
             return parseAndExpression(context.booleanAndExpression());
@@ -115,8 +115,8 @@ public class RulesParser extends BaseTreeWalker {
             BinaryOperator expression = new BinaryOperator();
             expression.setType(ExpressionType.BOOLEAN);
             expression.setOperator(OperatorKind.parse(context.SYM_AND().getText()));
-            expression.addOperand(parseAndExpression(context.booleanAndExpression()));
-            expression.addOperand(parseXorExpression(context.booleanXorExpression()));
+            expression.setLeftOperand(parseAndExpression(context.booleanAndExpression()));
+            expression.setRightOperand(parseXorExpression(context.booleanXorExpression()));
             return expression;
         } else {
             return parseXorExpression(context.booleanXorExpression());
@@ -128,8 +128,8 @@ public class RulesParser extends BaseTreeWalker {
             BinaryOperator expression = new BinaryOperator();
             expression.setType(ExpressionType.BOOLEAN);
             expression.setOperator(OperatorKind.parse(context.SYM_XOR().getText()));
-            expression.addOperand(parseBooleanNotExpression(context.booleanNotExpression()));
-            expression.addOperand(parseXorExpression(context.booleanXorExpression()));
+            expression.setLeftOperand(parseBooleanNotExpression(context.booleanNotExpression()));
+            expression.setRightOperand(parseXorExpression(context.booleanXorExpression()));
             return expression;
         } else {
             return parseBooleanNotExpression(context.booleanNotExpression());

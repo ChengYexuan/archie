@@ -5,18 +5,24 @@ package com.nedap.archie.rules;
  */
 public class UnaryOperator extends Operator {
 
+    private Expression operand;
+
     public UnaryOperator() {
 
     }
 
     public UnaryOperator(ExpressionType type, OperatorKind operator, String operatorSymbol, Expression operand) {
         setType(type);
-        setOperator(operator);
+        setOperatorDef(new OperatorDefBuiltin(operator));
         setSymbol(operatorSymbol);
-        addOperand(operand);
+        this.operand = operand;
     }
 
     public Expression getOperand() {
-        return super.getLeftOperand();
+        return operand;
+    }
+
+    public void setOperand(Expression operand) {
+        this.operand = operand;
     }
 }

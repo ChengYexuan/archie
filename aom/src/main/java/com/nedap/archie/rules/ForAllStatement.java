@@ -6,18 +6,19 @@ package com.nedap.archie.rules;
 public class ForAllStatement extends Operator {
 
     private String variableName;
+    private Expression pathExpression;
+    private Expression assertion;
 
     public ForAllStatement() {
 
     }
 
-    public ForAllStatement(String variableName, Expression path, Expression assertion) {
+    public ForAllStatement(String variableName, Expression pathExpression, Expression assertion) {
         setType(ExpressionType.BOOLEAN);
-        setOperator(OperatorKind.for_all);
-        addOperand(path);
-        addOperand(assertion);
-
+        setOperatorDef(new OperatorDefBuiltin(OperatorKind.for_all));
         this.variableName = variableName;
+        this.pathExpression = pathExpression;
+        this.assertion = assertion;
     }
 
     public String getVariableName() {
@@ -29,10 +30,18 @@ public class ForAllStatement extends Operator {
     }
 
     public Expression getPathExpression() {
-        return getLeftOperand();
+        return pathExpression;
+    }
+
+    public void setPathExpression(Expression pathExpression) {
+        this.pathExpression = pathExpression;
     }
 
     public Expression getAssertion() {
-        return getRightOperand();
+        return assertion;
+    }
+
+    public void setAssertion(Expression assertion) {
+        this.assertion = assertion;
     }
 }
