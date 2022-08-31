@@ -1,4 +1,5 @@
 import com.nedap.archie.aom.Archetype;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -67,7 +68,7 @@ public class IndexUtil {
         }
     }
 
-    public static void writeIndex(List<Archetype> archetypes) throws IOException {
+    /*public static void writeIndex(List<Archetype> archetypes) throws IOException {
         IndexWriter indexWriter;
         try {
             Analyzer analyzer = new StandardAnalyzer();
@@ -78,7 +79,6 @@ public class IndexUtil {
             throw new RuntimeException(e);
         }
 
-        ArchetypeNode node;
         Document document;
 
         FieldType kwType = new FieldType();
@@ -93,8 +93,7 @@ public class IndexUtil {
         txType.setTokenized(true);
         txType.setStoreTermVectors(true);
 
-        for (Archetype archetype : archetypes) {
-            node = converter.adl2node(archetype);
+        for (ArchetypeNode node : converter.clean(archetypes)) {
             document = new Document();
 
             document.add(new TextField("purpose", avoidNull(node.getPurpose()), Field.Store.YES));
@@ -136,7 +135,7 @@ public class IndexUtil {
         {
             ioe.printStackTrace();
         }
-    }
+    }*/
 
     private static String avoidNull(String text) {
         if(text == null) {

@@ -9,3 +9,6 @@ out/
 test-output/
 grammars/gen
 grammars/src/main/antlr/gen/
+/archie-all/src/main/resources
+/archie-all/src/test/resources/multi test/
+/archie-all/src/test/resources/single test/

@@ -1,28 +1,37 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.util.Objects;
+import extractor.NotNullExtractor;
+import extractor.TextExtractor;
+import extractor.SimpleExtractor;
 
 @JsonPropertyOrder({"text", "description", "comment"})
-public class DataElement{
+public class DataElement {
 
-    public String text;
-    public String description;
-    public String comment;
+    private String text;
+    private String description;
+    private String comment;
+
+    private TextExtractor nameExtractor = new SimpleExtractor();
+    private TextExtractor textExtractor = new NotNullExtractor();
+
+    void setExtractor(TextExtractor name, TextExtractor text) {
+        this.nameExtractor = name;
+        this.textExtractor = text;
+    }
 
     @JsonProperty
     public void setText(String text) {
-        this.text = text;
+        this.text = nameExtractor.extract(text);
     }
 
     @JsonProperty
     public void setDescription(String description) {
-        this.description = description;
+        this.description = textExtractor.extract(description);
     }
 
     @JsonProperty
     public void setComment(String comment) {
-        this.comment = comment;
+        this.comment = textExtractor.extract(comment);
     }
 
     public String getText() {
@@ -38,17 +47,8 @@ public class DataElement{
     }
 
     public DataElement(String text, String description, String comment) {
-        text = text.replaceAll("\\p{Punct}", " ").toLowerCase().trim();
         this.setText(text);
-        if(comment != null && !comment.contains("@ internal")){
-            this.setComment(comment);
-        } else {
-            this.setComment(null);
-        }
-        if(description!=null && !description.contains("@ internal")){
-            this.setDescription(description);
-        } else {
-            this.setDescription(null);
-        }
+        this.setComment(comment);
+        this.setDescription(description);
     }
 }
